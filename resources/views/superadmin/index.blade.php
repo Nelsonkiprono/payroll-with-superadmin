@@ -4,7 +4,7 @@
     
 
 
-
+<?php use Carbon\Carbon;?>
     <div class="row m-1">
 	<section class="content">
 		
@@ -15,25 +15,25 @@
     				<input type="radio" name="date-filter"
     				data-start="{{ date('Y-m-d') }}" 
     				data-end="{{ date('Y-m-d') }}"
-    				checked> {{ __('home.today') }}
+    				checked> Today
   				</label>
   				<label class="btn btn-info">
     				<input type="radio" name="date-filter"
     				data-start="{{ $date_filters['this_week']['start']}}" 
     				data-end="{{ $date_filters['this_week']['end']}}" 
-    				> {{ __('home.this_week') }}
+    				> This Week
   				</label>
   				<label class="btn btn-info">
     				<input type="radio" name="date-filter"
     				data-start="{{ $date_filters['this_month']['start']}}" 
     				data-end="{{ $date_filters['this_month']['end']}}"
-    				> {{ __('home.this_month') }}
+    				> This Month
   				</label>
   				<label class="btn btn-info">
     				<input type="radio" name="date-filter" 
     				data-start="{{ $date_filters['this_yr']['start']}}" 
     				data-end="{{ $date_filters['this_yr']['end']}}"  
-    				> {{ __('superadmin::lang.this_year') }}
+    				> This Month
   				</label>
             </div>
 			</div>
@@ -47,12 +47,12 @@
 	            <div class="inner">
 	              <h3><span class="new_subscriptions">&nbsp;</span></h3>
 
-	              <p>@lang('superadmin::lang.new_subscriptions')</p>
+	              <p>New Subscriptions</p>
 	            </div>
 	            <div class="icon">
 	              <i class="fa fa-refresh"></i>
 	            </div>
-	            <a href="{{ url('\app\Http\Controllers\SuperadminSubscriptionsController@index')}} " class="small-box-footer">@lang('superadmin::lang.more_info') <i class="fa fa-arrow-circle-right"></i></a>
+	            <a href="{{ url('\app\Http\Controllers\SuperadminSubscriptionsController@index')}} " class="small-box-footer"> More Info <i class="fa fa-arrow-circle-right"></i></a>
 	          </div>
 	        </div>
 	        <!-- ./col -->
@@ -67,7 +67,7 @@
 	            <div class="icon">
 	              <i class="ion ion-stats-bars"></i>
 	            </div>
-	            <a href="#" class="small-box-footer">@lang('superadmin::lang.more_info')<i class="fa fa-arrow-circle-right"></i></a>
+	            <a href="#" class="small-box-footer">More Info<i class="fa fa-arrow-circle-right"></i></a>
 	          </div>
 	        </div> -->
 	        <!-- ./col -->
@@ -78,12 +78,12 @@
 	            <div class="inner">
 	              <h3><span class="new_registrations">&nbsp;</span></h3>
 
-	              <p>@lang('superadmin::lang.new_registrations')</p>
+	              <p>New Registrations</p>
 	            </div>
 	            <div class="icon">
 	              <i class="ion ion-person-add"></i>
 	            </div>
-	            <a href="{{<?php //action('\Modules\Superadmin\Http\Controllers\BusinessController@index') ?>}}" class="small-box-footer">@lang('superadmin::lang.more_info') <i class="fa fa-arrow-circle-right"></i></a>
+	            <a href="{{ url ('app\Http\Controllers\BusinessController@index')}}" class="small-box-footer">More Info <i class="fa fa-arrow-circle-right"></i></a>
 	          </div>
 	        </div>
 	        <!-- ./col -->
@@ -92,14 +92,14 @@
 	          <!-- small box -->
 	          <div class="small-box bg-red">
 	            <div class="inner">
-	              <h3>{{<?php //$not_subscribed ?>}}</h3>
+	              <h3>{{$not_subscribed}}</h3>
 
-	              <p>@lang('superadmin::lang.not_subscribed')</p>
+	              <p>Not Subscribed</p>
 	            </div>
 	            <div class="icon">
 	              <i class="ion ion-pie-graph"></i>
 	            </div>
-	            <a href="{{<?php //action('\Modules\Superadmin\Http\Controllers\BusinessController@index') ?>}}" class="small-box-footer">@lang('superadmin::lang.more_info') <i class="fa fa-arrow-circle-right"></i></a>
+	            <a href="{{ url ('app\Http\Controllers\BusinessController@index')}}" class="small-box-footer">More Info <i class="fa fa-arrow-circle-right"></i></a>
 	          </div>
 	        </div>
         	<!-- ./col -->
@@ -109,10 +109,10 @@
 	  		<div class="col-sm-12">
 	  			<div class="box box-primary">
 	  				<div class="box-header">
-	         			<h3 class="box-title">{{ __('superadmin::lang.monthly_sales_trend') }}</h3>
+	         			<h3 class="box-title">Monthly Sales Trend</h3>
 	         		</div>
 		            <div class="box-body">
-		            	{<?php //!! $monthly_sells_chart->container() !!?>}
+		            	{{ !! $monthly_sells_chart->container() }}
 		            </div>
 		            <!-- /.box-body -->
 	          	</div>
