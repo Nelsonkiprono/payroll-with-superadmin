@@ -1,10 +1,11 @@
 @extends('layouts.main_hr')
 @section('xara_cbs')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-    
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"> -->
 
 
 <?php use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+
 ?>
     <div class="row m-1">
 	<section class="content">
@@ -34,7 +35,7 @@
     				<input type="radio" name="date-filter" 
     				data-start="{{ $date_filters['this_yr']['start']}}" 
     				data-end="{{ $date_filters['this_yr']['end']}}"  
-    				> This Month
+    				> This Year
   				</label>
             </div>
 			</div>
@@ -49,11 +50,12 @@
 	              <h3><span class="new_subscriptions">&nbsp;</span></h3>
 
 	              <p>New Subscriptions</p>
+				  <canvas id="genderChart" height="200" width="200"></canvas>
 	            </div>
 	            <div class="icon">
 	              <i class="fa fa-refresh"></i>
 	            </div>
-	            <a href="{{ url('\app\Http\Controllers\SuperadminSubscriptionsController@index')}} " class="small-box-footer"> More Info <i class="fa fa-arrow-circle-right"></i></a>
+	            <a href="{{ url('newSubscription')}} " class="small-box-footer"> More Info <i class="fa fa-arrow-circle-right"></i></a>
 	          </div>
 	        </div>
 	        <!-- ./col -->
@@ -80,6 +82,7 @@
 	              <h3><span class="new_registrations">&nbsp;</span></h3>
 
 	              <p>New Registrations</p>
+				  <canvas id="genderChart1" height="200" width="200"></canvas>
 	            </div>
 	            <div class="icon">
 	              <i class="ion ion-person-add"></i>
@@ -94,8 +97,8 @@
 	          <div class="small-box bg-red">
 	            <div class="inner">
 	              <h3>{{$not_subscribed}}</h3>
-
 	              <p>Not Subscribed</p>
+				  <canvas id="genderChart2" height="200" width="200"></canvas>
 	            </div>
 	            <div class="icon">
 	              <i class="ion ion-pie-graph"></i>
@@ -106,11 +109,12 @@
         	<!-- ./col -->
     	</div>
 
-    	<div class="row">
+    	<div class="row m-3">
 	  		<div class="col-sm-12">
 	  			<div class="box box-primary">
 	  				<div class="box-header">
 	         			<h3 class="box-title">Monthly Sales Trend</h3>
+						<canvas id="genderChart3" height="200" width="200"></canvas>
 	         		</div>
 		            <div class="box-body">
 		            </div>
@@ -130,54 +134,166 @@
 	
 
 
-{{!! $monthly_sells_chart->script() }}
-<script type="text/javascript">
-	$(document).ready(function(){
+{{ <?php //!! $monthly_sells_chart->script() ?>}}
 
-		var start = $('input[name="date-filter"]:checked').data('start');
-		var end = $('input[name="date-filter"]:checked').data('end');
-		update_statistics(start, end);
-		$(document).on('change', 'input[name="date-filter"]', function(){
-			var start = $('input[name="date-filter"]:checked').data('start');
-			var end = $('input[name="date-filter"]:checked').data('end');
-			update_statistics(start, end);
-		});
-	});
 
-	function update_statistics(start, end){
-		var data = { start: start, end: end };
 
-		//get purchase details
-		var loader = '<i class="fa fa-refresh fa-spin fa-fw"></i>';
-		$('.new_subscriptions').html(loader);
-		$('.new_registrations').html(loader);
-		$.ajax({
-			method: "GET",
-			url: '/superadmin/stats',
-			dataType: "json",
-			data: data,
-			success: function(data){
-				$('.new_subscriptions').html(__currency_trans_from_en(data.new_subscriptions, true, true));
-				$('.new_registrations').html(data.new_registrations);
-			}
-		});
-	}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const genderData = {
+            labels: ['Male', 'Female', 'Other'],
+            datasets: [{
+                label: 'Gender Distribution',
+                data: [25, 30, 15], // Dummy data (replace with your actual data)
+                backgroundColor: [
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(255, 99, 132, 0.6)',
+                    'rgba(255, 206, 86, 0.6)',
+                ],
+                borderColor: [
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 206, 86, 1)',
+                ],
+                borderWidth: 1,
+            }],
+        };
+
+        const gender = document.getElementById('genderChart').getContext('2d');
+        const genderChart = new Chart(gender, {
+            type: 'bar',
+            data: genderData,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                    },
+                },
+            },
+        });
+    });
 </script>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const genderData = {
+            labels: ['Male', 'Female', 'Other'],
+            datasets: [{
+                label: 'Gender Distribution',
+                data: [25, 30, 15], // Dummy data (replace with your actual data)
+                backgroundColor: [
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(255, 99, 132, 0.6)',
+                    'rgba(255, 206, 86, 0.6)',
+                ],
+                borderColor: [
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 206, 86, 1)',
+                ],
+                borderWidth: 1,
+            }],
+        };
+
+        const gender = document.getElementById('genderChart1').getContext('2d');
+        const genderChart = new Chart(gender, {
+            type: 'bar',
+            data: genderData,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                    },
+                },
+            },
+        });
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const genderData = {
+            labels: ['Male', 'Female', 'Other'],
+            datasets: [{
+                label: 'Gender Distribution',
+                data: [25, 30, 15], // Dummy data (replace with your actual data)
+                backgroundColor: [
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(255, 99, 132, 0.6)',
+                    'rgba(255, 206, 86, 0.6)',
+                ],
+                borderColor: [
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 206, 86, 1)',
+                ],
+                borderWidth: 1,
+            }],
+        };
+
+        const gender = document.getElementById('genderChart2').getContext('2d');
+        const genderChart = new Chart(gender, {
+            type: 'bar',
+            data: genderData,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                    },
+                },
+            },
+        });
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const genderData = {
+            labels: ['Male', 'Female', 'Other'],
+            datasets: [{
+                label: 'Gender Distribution',
+                data: [25, 30, 15], // Dummy data (replace with your actual data)
+                backgroundColor: [
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(255, 99, 132, 0.6)',
+                    'rgba(255, 206, 86, 0.6)',
+                ],
+                borderColor: [
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 206, 86, 1)',
+                ],
+                borderWidth: 1,
+            }],
+        };
+
+        const gender = document.getElementById('genderChart3').getContext('2d');
+        const genderChart = new Chart(gender, {
+            type: 'bar',
+            data: genderData,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                    },
+                },
+            },
+        });
+    });
+</script>
 
 
 
-@section('title', __('superadmin::lang.superadmin') . ' | ' . __('superadmin::lang.packages'))
-@section('content')
-	
-	<section class="content-header">
-		<h1>
-			@lang('superadmin::lang.welcome_superadmin')
-		</h1>
-	</section>
 
-@endsection
 
-@section('javascript')
-@endsection
+
+
+    
+
+
+
+
+
+
+

@@ -1,19 +1,14 @@
-@extends('layouts.app')
-@section('title', 'Superadmin Subscription')
-
-@section('content')
-@include('superadmin::layouts.nav')
+@extends('layouts.main_hr')
+@section('xara_cbs')
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>@lang( 'superadmin::lang.subscription' )
-        <small>@lang( 'superadmin::lang.view_subscription' )</small>
+    <h1>subscription
+        <small>view_subscription</small>
     </h1>
 </section>
 
 <!-- Main content -->
 <section class="content">
-
-    @include('superadmin::layouts.partials.currency')
 
     <div class="box box-solid">  
         <div class="box-body">
@@ -22,16 +17,16 @@
             	<table class="table table-bordered table-striped" id="superadmin_subscription_table">
             		<thead>
             			<tr>
-                            <th>@lang( 'superadmin::lang.business_name' )</th>
-            				<th>@lang( 'superadmin::lang.package_name' )</th>
-                            <th>@lang( 'superadmin::lang.status' )</th>
-                            <th>@lang( 'superadmin::lang.start_date' )</th>
-            				<th>@lang( 'superadmin::lang.trial_end_date' )</th>
-                            <th>@lang( 'superadmin::lang.end_date' )</th>
-            				<th>@lang( 'superadmin::lang.price' )</th>
-                            <th>@lang( 'superadmin::lang.paid_via' )</th>
-            				<th>@lang( 'superadmin::lang.payment_transaction_id' )</th>
-                            <th>@lang( 'superadmin::lang.action' )</th>
+                            <th>business_name</th>
+            				<th>package_name</th>
+                            <th>status</th>
+                            <th>start_date</th>
+            				<th>trial_end_date</th>
+                            <th>end_date</th>
+            				<th>price</th>
+                            <th>paid_via</th>
+            				<th>payment_transaction_id</th>
+                            <th>action</th>
             			</tr>
             		</thead>
             	</table>

@@ -1,20 +1,20 @@
 <?php
 
-namespace Modules\Superadmin\Http\Controllers;
+namespace App\Http\Controllers;
 
+use App\Http\Controllers\BaseControllerAdmin;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
-use Modules\Superadmin\Entities\Subscription;
-use Modules\Superadmin\Entities\Package;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\DB;
 
 use App\Utils\BusinessUtil;
 
 use App\System;
+use phpDocumentor\Reflection\DocBlock\Tags\Var_;
 
-class SuperadminSubscriptionsController extends BaseController
+class SuperadminSubscriptionsController extends BaseControllerAdmin
 {
     protected $businessUtil;
 
@@ -24,10 +24,11 @@ class SuperadminSubscriptionsController extends BaseController
      * @param BusinessUtil $businessUtil
      * @return void
      */
-    public function __construct(BusinessUtil $businessUtil)
-    {
-        $this->businessUtil = $businessUtil;
-    }
+    // public function __construct(BusinessUtil $businessUtil)
+    // {
+
+    //     $this->businessUtil = $businessUtil;
+    // }
 
     /**
      * Display a listing of the resource.
@@ -35,9 +36,12 @@ class SuperadminSubscriptionsController extends BaseController
      */
     public function index()
     {
-        if (!auth()->user()->can('superadmin')) {
-            abort(403, 'Unauthorized action.');
-        }
+        // if (!auth()->user()->can('superadmin')) {
+        //     abort(403, 'Unauthorized action.');
+        // }
+        // if(auth()->user()->user_type == 'admin'){
+        //     return "senor";
+        // }
 
         if (request()->ajax()) {
             $superadmin_subscription = Subscription::join('business', 'subscriptions.business_id', '=', 'business.id')
@@ -79,7 +83,7 @@ class SuperadminSubscriptionsController extends BaseController
                         ->rawColumns([2, 6, 9])
                         ->make(false);
         }
-        return view('superadmin::superadmin_subscription.index');
+        return view('superadmin_subscription.index');
     }
 
     /**

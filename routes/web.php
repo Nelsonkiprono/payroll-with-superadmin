@@ -910,6 +910,7 @@ Route::group(['prefix' => 'api/v1'], function () {
 
 use App\Http\Controllers\SuperadminController;
 use App\Http\Controllers\BusinessController;
+use App\Http\Controllers\SuperadminSubscriptionsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -929,6 +930,8 @@ use App\Http\Controllers\BusinessController;
 
 
 Route::get('/superadmin', [SuperadminController::class, 'index'])->name('superadmin.index');
+
+Route::get('/newSubscription', [SuperadminSubscriptionsController::class, 'index'])->name('newSubscription');
 
 Route::get('/business', [BusinessController::class, 'index'])->name('business.index');
 
