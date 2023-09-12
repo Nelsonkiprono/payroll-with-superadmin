@@ -1,6 +1,11 @@
-
-
 @extends('layouts.main_hr')
+@section('xara_cbs')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    
+
+
+
+    <div class="row m-1">
 	<section class="content">
 		
 		<div class="row">
@@ -115,6 +120,14 @@
   		</div>
 
 	</section>
+
+        </div>
+
+@stop
+
+
+
+	
 
 
 {{<?php //!! $monthly_sells_chart->script() ?>}}
