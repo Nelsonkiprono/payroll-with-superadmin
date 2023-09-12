@@ -55,7 +55,12 @@ use Illuminate\Support\Facades\Auth;
 	            <div class="icon">
 	              <i class="fa fa-refresh"></i>
 	            </div>
+<<<<<<< HEAD
 	            <a href="{{ url('newSubscription')}} " class="small-box-footer"> More Info <i class="fa fa-arrow-circle-right"></i></a>
+=======
+				{{-- <a href="{{ route('newsubscriptions') }}">Go to Example Route</a> --}}
+				<a href="newsubscriptions" class="small-box-footer"> More Info <i class="fa fa-arrow-circle-right"></i></a>
+>>>>>>> bbe9fe5b (views and controller changes)
 	          </div>
 	        </div>
 	        <!-- ./col -->
@@ -134,7 +139,13 @@ use Illuminate\Support\Facades\Auth;
 	
 
 
+<<<<<<< HEAD
 {{ <?php //!! $monthly_sells_chart->script() ?>}}
+=======
+{{-- {{!! $monthly_sells_chart->script() }} --}}
+<script type="text/javascript">
+	$(document).ready(function(){
+>>>>>>> bbe9fe5b (views and controller changes)
 
 
 

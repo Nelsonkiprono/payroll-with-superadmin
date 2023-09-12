@@ -1,8 +1,5 @@
-
-@include(includes.head)
-@include(includes.nav_css_admin)
-@include(includes.nav_leave)
-@include(includes.top_nav)
+@extends('layouts.main_hr')
+@section('xara_cbs')
 @section('title', __('lang.superadmin') . ' | Business')
 
 @section('content')
@@ -56,12 +53,12 @@
         <div class="box-header">
             <h3 class="box-title">&nbsp;</h3>
         	<div class="box-tools">
-                <a href="{{action('\Modules\Superadmin\Http\Controllers\BusinessController@create')}}" 
+                <a href="/businesscontrollercreate" 
                     class="btn btn-block btn-primary">
                 	<i class="fa fa-plus"></i> @lang( 'messages.add' )</a>
             </div>
         </div>
-
+        
         <div class="box-body">
             @can('superadmin')
                 <div class="table-responsive">
@@ -102,7 +99,7 @@
             processing: true,
             serverSide: true,
             ajax: {
-                url: "{{action('\Modules\Superadmin\Http\Controllers\BusinessController@index')}}",
+                url: "{{action('\App\Http\Controllers\BusinessController@index')}}",
                 data: function(d) {
                     d.package_id = $('#package_id').val();
                     d.subscription_status = $('#subscription_status').val();

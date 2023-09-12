@@ -1,5 +1,5 @@
 <?php
-
+// use App\Http\Controllers\SubscriptionsController;
 use App\Http\Controllers\AccountsController;
 use App\Http\Controllers\AdvanceController;
 use App\Http\Controllers\BiometricsController;
@@ -54,6 +54,7 @@ use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\ReliefsController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\UserController;
 use App\Models\Audit;
 use App\Models\Bank;
@@ -75,6 +76,8 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -85,6 +88,8 @@ use Illuminate\Support\Facades\View;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/businesscontrollercreate',[BusinessController::class,'create']);
+Route::get('/newsubscriptions',[SubscriptionController::class,'index']);
 Route::get('sendEmails',[EmailController::class,'sendEmail']);
 Route::get('notifyContract',[ContractController::class,'EmployeeContracts']);
 Route::get('notofyMail',[EmailController::class,'notifyAdmin']);

@@ -1,6 +1,5 @@
-<?php
-
-namespace Modules\Superadmin\Http\Controllers;
+<?php 
+namespace App\Http\Controllers;
 
 use \Notification;
 use App\Business;
@@ -49,7 +48,8 @@ class SubscriptionController extends BaseController
     public function index()
     {
         if (!auth()->user()->can('superadmin.access_package_subscriptions')) {
-            abort(403, 'Unauthorized action.');
+             abort(403, 'Unauthorized action.');
+            
         }
 
         $business_id = request()->session()->get('user.business_id');

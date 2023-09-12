@@ -15,7 +15,7 @@ use Illuminate\Routing\Controller;
 use App\Charts\CommonChart;
 use App\Http\Controllers\BaseController;
 use App\Models\business as bus;
-use App\Models\currency;
+use App\Models\Currency;
 use Carbon\Carbon;
 
 class SuperadminController extends BaseController
@@ -47,7 +47,7 @@ class SuperadminController extends BaseController
 
         // Commented by Dominick -->
         // $currency = System::getCurrency();
-        $currency = currency::where('id', 1);
+        $currency = Currency::where('id', 1);
 
         // //Count all busineses not subscribed.
         // $not_subscribed = Bus::leftjoin('subscriptions AS s', 'business.id', '=', 's.business_id')
