@@ -10,6 +10,16 @@
                         <span class="pcoded-mtext">Dashboard</span>
                     </a>
                 </li>
+
+                <!-- Super Admin Link -->
+                <li class="">
+                    <a href="{{ url('superadmin')}}" class="waves-effect waves-dark">
+                        <span class="pcoded-micon"><i class="feather icon-home"></i></span>
+                        <span class="pcoded-mtext">Super Admin</span>
+                    </a>
+                </li>
+
+
                 <li class="pcoded-hasmenu">
                     <a href="javascript:void(0)" class="waves-effect waves-dark">
                         <span class="pcoded-micon"><i class="feather icon-grid"></i></span>
