@@ -4,7 +4,8 @@
     
 
 
-<?php use Carbon\Carbon;?>
+<?php use Carbon\Carbon;
+?>
     <div class="row m-1">
 	<section class="content">
 		
@@ -112,7 +113,6 @@
 	         			<h3 class="box-title">Monthly Sales Trend</h3>
 	         		</div>
 		            <div class="box-body">
-		            	{{ !! $monthly_sells_chart->container() }}
 		            </div>
 		            <!-- /.box-body -->
 	          	</div>
@@ -130,7 +130,7 @@
 	
 
 
-{{<?php //!! $monthly_sells_chart->script() ?>}}
+{{!! $monthly_sells_chart->script() }}
 <script type="text/javascript">
 	$(document).ready(function(){
 
