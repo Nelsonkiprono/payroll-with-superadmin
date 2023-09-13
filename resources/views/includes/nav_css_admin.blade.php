@@ -12,11 +12,18 @@
                 </li>
 
                 <!-- Super Admin Link -->
-                <li class="">
+                <li class="pcoded-hasmenu">
                     <a href="{{ url('superadmin')}}" class="waves-effect waves-dark">
                         <span class="pcoded-micon"><i class="feather icon-home"></i></span>
                         <span class="pcoded-mtext">Super Admin</span>
                     </a>
+                    <ul class="pcoded-submenu">
+                    <li>
+                            <a href="{{ url('business') }}" class="waves-effect waves-dark">
+                                <span class="pcoded-mtext">Business</span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
 
 

@@ -121,23 +121,23 @@ class BusinessController extends BaseController
                 ->editColumn( 'is_active', '@if($is_active == 1) <span class="label bg-green">@lang("business.is_active")</span> @else <span class="label bg-gray">@lang("lang_v1.inactive")</span> @endif')
                 ->addColumn('action', function($row) {
                     $html = '<a href="' . 
-                            action("\Modules\Superadmin\Http\Controllers\BusinessController@show", [$row->id]) . '"
-                                class="btn btn-info btn-xs">' . __('superadmin::lang.manage' ) . '</a>
-                            <button type="button" class="btn btn-primary btn-xs btn-modal" data-href="' . action('\Modules\Superadmin\Http\Controllers\SuperadminSubscriptionsController@create', ['business_id' => $row->id]) . '" data-container=".view_modal">'
-                                  . __('superadmin::lang.add_subscription' ) . '</button>';
+                            action("\App\Http\Controllers\BusinessController@show", [$row->id]) . '"
+                                class="btn btn-info btn-xs">' . __('manage' ) . '</a>
+                            <button type="button" class="btn btn-primary btn-xs btn-modal" data-href="' . action('\App\Http\Controllers\SuperadminSubscriptionsController@create', ['business_id' => $row->id]) . '" data-container=".view_modal">'
+                                  . __('add_subscription' ) . '</button>';
 
                             if($row->is_active == 1) {
-                                $html .= ' <a href="' . action('\Modules\Superadmin\Http\Controllers\BusinessController@toggleActive', [$row->id, 0]) . '"
-                                    class="btn btn-danger btn-xs link_confirmation">' . __('lang_v1.deactivate') . '
+                                $html .= ' <a href="' . action('\App\Http\Controllers\BusinessController@toggleActive', [$row->id, 0]) . '"
+                                    class="btn btn-danger btn-xs link_confirmation">' . __('deactivate') . '
                                 </a>';
                             } else {
-                                $html .= ' <a href="' . action('\Modules\Superadmin\Http\Controllers\BusinessController@toggleActive', [$row->id, 1]) . '"
-                                    class="btn btn-success btn-xs link_confirmation">' . __('lang_v1.activate' ) . '
+                                $html .= ' <a href="' . action('\App\Http\Controllers\BusinessController@toggleActive', [$row->id, 1]) . '"
+                                    class="btn btn-success btn-xs link_confirmation">' . __('activate' ) . '
                                 </a>';
                             }
 
                             if(request()->session()->get('user.business_id') != $row->id) {
-                                $html .= ' <a href="' . action('\Modules\Superadmin\Http\Controllers\BusinessController@destroy', [$row->id]) . '"
+                                $html .= ' <a href="' . action('\App\Http\Controllers\BusinessController@destroy', [$row->id]) . '"
                                     class="btn btn-danger btn-xs delete_business_confirmation">' . __('messages.delete' ) . '</a>';
                             }
 
@@ -166,21 +166,21 @@ class BusinessController extends BaseController
         $packages = Package::listPackages()->pluck('name', 'id');
 
         $subscription_statuses = [
-            'subscribed' => __('superadmin::lang.subscribed'),
+            'subscribed' => __('subscribed'),
             'expired' => __('report.expired'),
-            '30' => __('superadmin::lang.expiring_in_one_month'),
-            '7' => __('superadmin::lang.expiring_in_7_days'),
-            '3' => __('superadmin::lang.expiring_in_3_days'),
+            '30' => __('expiring_in_one_month'),
+            '7' => __('expiring_in_7_days'),
+            '3' => __('expiring_in_3_days'),
         ];
 
         $last_transaction_date = [
             'today' => __('home.today'),
-            'yesterday' => __('superadmin::lang.yesterday'),
+            'yesterday' => __('yesterday'),
             'this_week' => __('home.this_week'),
             'this_month' => __('home.this_month'),
-            'last_month' => __('superadmin::lang.last_month'),
-            'this_year' => __('superadmin::lang.this_year'),
-            'last_year' => __('superadmin::lang.last_year')
+            'last_month' => __('last_month'),
+            'this_year' => __('this_year'),
+            'last_year' => __('last_year')
         ];
 
         return view('business.index')
@@ -326,7 +326,7 @@ class BusinessController extends BaseController
                         ];
 
             return redirect()
-                ->action('\Modules\Superadmin\Http\Controllers\BusinessController@index')
+                ->action('\App\Http\Controllers\BusinessController@index')
                 ->with('status', $output);
         } catch (\Exception $e) {
             DB::rollBack();
@@ -397,7 +397,7 @@ class BusinessController extends BaseController
             //Check if logged in busines id is same as deleted business then not allowed.
             $business_id = request()->session()->get('user.business_id');
             if ($business_id == $id) {
-                $output = ['success' => 0, 'msg' => __('superadmin.lang.cannot_delete_current_business')];
+                $output = ['success' => 0, 'msg' => __('cannot_delete_current_business')];
                 return back()->with('status', $output);
             }
 
@@ -415,9 +415,9 @@ class BusinessController extends BaseController
 
             DB::commit();
 
-            $output = ['success' => 1, 'msg' => __('lang_v1.success')];
+            $output = ['success' => 1, 'msg' => __('success')];
             return redirect()
-                ->action('\Modules\Superadmin\Http\Controllers\BusinessController@index')
+                ->action('\App\Http\Controllers\BusinessController@index')
                 ->with('status', $output);
         } catch (\Exception $e) {
             DB::rollBack();
@@ -450,7 +450,7 @@ class BusinessController extends BaseController
             ->update(['is_active' => $is_active]);
 
         $output = ['success' => 1,
-                    'msg' => __('lang_v1.success')
+                    'msg' => __('success')
                 ];
         return back()->with('status', $output);
     }
@@ -485,10 +485,10 @@ class BusinessController extends BaseController
                 ->addColumn(
                     'action',
                     '@can("user.update")
-                        <a href="#" class="btn btn-xs btn-primary update_user_password" data-user_id="{{$id}}" data-user_name="{{$full_name}}"><i class="glyphicon glyphicon-edit"></i> @lang("superadmin::lang.update_password")</a>
+                        <a href="#" class="btn btn-xs btn-primary update_user_password" data-user_id="{{$id}}" data-user_name="{{$full_name}}"><i class="glyphicon glyphicon-edit"></i>update_password")</a>
                         &nbsp;
                         @if(!empty($username))
-                        <a href="{{route("sign-in-as-user", $id)}}?save_current=true" class="btn btn-xs btn-success"><i class="fas fa-sign-in-alt"></i> @lang("lang_v1.login_as_username", ["username" => $username])</a>
+                        <a href="{{route("sign-in-as-user", $id)}}?save_current=true" class="btn btn-xs btn-success"><i class="fas fa-sign-in-alt"></i>login_as_username", ["username" => $username])</a>
                         @endif
                     @endcan'
                 )
@@ -527,7 +527,7 @@ class BusinessController extends BaseController
             }
 
             $output = ['success' => 1,
-                        'msg' => __("superadmin::lang.password_updated_successfully")
+                        'msg' => __("password_updated_successfully")
                     ];
         } catch (\Exception $e) {
             \Log::emergency("File:" . $e->getFile(). "Line:" . $e->getLine(). "Message:" . $e->getMessage());

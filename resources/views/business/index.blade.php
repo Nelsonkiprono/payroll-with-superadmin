@@ -1,12 +1,10 @@
 @extends('layouts.main_hr')
 @section('xara_cbs')
-@section('title', __('lang.superadmin') . ' | Business')
 
-@section('content')
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>@lang( 'lang.all_business' )
-        <small>@lang( 'lang.manage_business' )</small>
+    <h1>all_business
+        <small>manage_business</small>
     </h1>
     <!-- <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
@@ -16,75 +14,77 @@
 
 <!-- Main content -->
 <section class="content">
-    @component('components.filters', ['title' => __('report.filters')])
         <div class="col-md-3">
             <div class="form-group">
-                {!! Form::label('package_id',  __('lang.packages') . ':') !!}
-                {!! Form::select('package_id', $packages, null, ['class' => 'form-control select2', 'style' => 'width:100%', 'placeholder' => __('lang_v1.all')]); !!}
+                {!! Form::label('package_id',  __('packages') . ':') !!}
+                {!! Form::select('package_id', $packages, null, ['class' => 'form-control select2', 'style' => 'width:100%', 'placeholder' => __('all')]); !!}
             </div>
         </div>
         <div class="col-md-3">
             <div class="form-group">
-                {!! Form::label('subscription_status',  __('lang.subscription_status') . ':') !!}
-                {!! Form::select('subscription_status', $subscription_statuses, null, ['class' => 'form-control select2', 'style' => 'width:100%', 'placeholder' => __('lang_v1.all')]); !!}
+                {!! Form::label('subscription_status',  __('subscription_status') . ':') !!}
+                {!! Form::select('subscription_status', $subscription_statuses, null, ['class' => 'form-control select2', 'style' => 'width:100%', 'placeholder' => __('all')]); !!}
             </div>
         </div>
         <div class="col-md-3">
             <div class="form-group">
                 {!! Form::label('is_active',  __('sale.status') . ':') !!}
-                {!! Form::select('is_active', ['active' => __('business.is_active'), 'inactive' => __('lang_v1.inactive')], null, ['class' => 'form-control select2', 'style' => 'width:100%', 'placeholder' => __('lang_v1.all')]); !!}
+                {!! Form::select('is_active', ['active' => __('business.is_active'), 'inactive' => __('inactive')], null, ['class' => 'form-control select2', 'style' => 'width:100%', 'placeholder' => __('all')]); !!}
             </div>
         </div>
         <div class="col-md-3">
             <div class="form-group">
-                {!! Form::label('last_transaction_date',  __('lang.last_transaction_date') . ':') !!}
+                {!! Form::label('last_transaction_date',  __('last_transaction_date') . ':') !!}
                 {!! Form::select('last_transaction_date', $last_transaction_date, null, ['class' => 'form-control select2', 'style' => 'width:100%', 'placeholder' => __('messages.please_select')]); !!}
             </div>
         </div>
 
         <div class="col-md-3">
             <div class="form-group">
-                {!! Form::label('no_transaction_since',  __('lang.no_transaction_since') . ':') !!}
-                {!! Form::select('no_transaction_since', $last_transaction_date, null, ['class' => 'form-control select2', 'style' => 'width:100%', 'placeholder' => __('messages.please_select')]); !!}
+              <label for="no_transaction_since">no_transaction_since:</label>
+              <select name="no_transaction_since" id="no_transaction_since" class="form-control select2" style="width:100%" placeholder="messages.please_select">
+                @foreach($last_transaction_date as $value => $option)
+                 <option value="{{ $value }}">{{ $option }}</option>
+                 @endforeach
+             </select>
             </div>
         </div>
-    <!-- @endcomponent -->
 	<div class="box box-solid">
         <div class="box-header">
             <h3 class="box-title">&nbsp;</h3>
         	<div class="box-tools">
                 <a href="/businesscontrollercreate" 
                     class="btn btn-block btn-primary">
-                	<i class="fa fa-plus"></i> @lang( 'messages.add' )</a>
+                	<i class="fa fa-plus"></i>messages</a>
             </div>
         </div>
         
         <div class="box-body">
-            @can('superadmin')
+            superadmin
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped" id="superadmin_business_table">
                         <thead>
                             <tr>
                                 <th>
-                                    @lang('lang.registered_on')
+                                    registered_on
                                 </th>
-                                <th>@lang( 'lang.business_name' )</th>
-                                <th>@lang('business.owner')</th>
-                                <th>@lang('business.email')</th>
-                                <th>@lang('lang.owner_number')</th>
-                                <th>@lang( 'lang.business_contact_number' )</th>
-                                <th>@lang('business.address')</th>
-                                <th>@lang( 'sale.status' )</th>
-                                <th>@lang( 'lang.current_subscription' )</th>
-                                <th>@lang( 'business.created_by' )</th>
-                                <th>@lang( 'lang.action' )</th>
+                                <th>business_name</th>
+                                <th>business.owner</th>
+                                <th>business.email</th>
+                                <th>owner_number</th>
+                                <th>business_contact_number</th>
+                                <th>business.address</th>
+                                <th>sale.status</th>
+                                <th>current_subscription</th>
+                                <th>business.created_by</th>
+                                <th>action</th>
                             </tr>
                         </thead>
                     </table>
                 </div>
-            @endcan
         </div>
     </div>
+  </div>
 
 </section>
 <!-- /.content -->
@@ -131,7 +131,7 @@
     $(document).on('click', 'a.delete_business_confirmation', function(e){
         e.preventDefault();
         swal({
-            title: LANG.sure,
+            title:sure,
             text: "Once deleted, you will not be able to recover this business!",
             icon: "warning",
             buttons: true,
